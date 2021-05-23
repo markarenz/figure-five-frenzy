@@ -1,0 +1,37 @@
+
+.operator{
+  position:absolute;
+  z-index:1;
+  &.operatorBelowCards{
+   z-index:0;
+  }
+  top:calc(6vh + 28vw);
+  text-align:center;
+  display:block;
+  border-radius: 50%;
+  background:orange;
+  width:4vw;
+  cursor: pointer;
+  border: .5vw solid white;
+  box-shadow: 0 0 2vw rgba(0,0,0,.5);
+  transform: scale(1);
+  transition: .25s all ease;
+  &:hover{
+    transform: scale(1.2);
+  }
+  span{
+    display:block;
+    padding:0;
+    font-size:4vw;
+    font-weight:bold;
+    line-height:1;
+
+    /* NO SELECT */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+}

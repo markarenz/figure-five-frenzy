@@ -1,0 +1,23 @@
+.header{
+  padding:1vh 0 2vh;
+  text-align:center;
+  display:flex;
+  justify-content: space-between;
+  h2{
+    color:rgba(255,255,255,.7);
+    padding:1vw;
+    font-size:4vw;
+    line-height: 1;
+    .timerIcon{
+      font-size:3vw;
+    }
+  }
+}
+
+.title{
+  font-size: 5vw;
+  color:white;
+  margin:0;
+  padding:0;
+}
+

@@ -1,0 +1,86 @@
+@import "./btnGeneral.module";
+
+.root{
+  z-index:3;
+  display:block;
+  position:fixed;
+  width:100%;
+  height:100vh;
+  top:0;
+  left:0;
+  padding: 20vh 0;
+  background-color: rgba(0,0,0,.7);
+  opacity:1;
+  pointer-events: all;
+  transition:0.25s all ease-out;
+  transition-delay:0.5s;
+  text-align: center;
+  overflow-y: hidden;
+  &.exitRoot{
+    opacity:0;
+    pointer-events: none;
+  }
+}
+.stage{
+  display: inline-block;
+  border-radius:1vw;
+  border:0.5vw solid white;
+  text-align:center;
+  background-color: rgba(255,255,255,.7);
+  color:black;
+  padding:2vw 4vw;
+  transform:translateY(0);
+  //transition: 0.5s all cubic-bezier(0,-0.57,1,.64);
+  .stageInner{
+    display:flex;
+    max-width:50vw;
+    flex-wrap:wrap;
+    justify-content: center;
+    align-items: center;
+    h2{
+      width:100%;
+      padding:1vh 0;
+    }
+    button{
+      background-color: #5bad56;
+      //color:white;
+      //cursor:pointer;
+    }
+    p{
+      font-size:18px;
+      line-height:1.3;
+    }
+  }
+  &.exitStage{
+    animation-name: bounceOut;
+    animation-duration: .3s;
+    animation-delay: .15s;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+    button{
+      animation-name: bounceOut;
+      animation-duration: .3s;
+      animation-delay: 0s;
+      animation-iteration-count: 1;
+      animation-direction: normal;
+      animation-timing-function: ease-in;
+      animation-fill-mode: forwards;
+    }
+  }
+}
+
+
+@keyframes bounceOut {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+    opacity:1;
+  }
+  100% {
+    transform: scale(0);
+  }
+}

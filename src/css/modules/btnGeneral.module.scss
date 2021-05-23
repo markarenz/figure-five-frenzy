@@ -1,0 +1,54 @@
+.btnGeneralWrap {
+  z-index:1;
+  transform:scale(1);
+  transition:.25s all ease-in-out;
+  display: inline-block;
+  .btnGeneral{
+    border-radius:1vw;
+    font-size:2vw;
+    background-color:white;
+    border:0.5vw solid #222;
+    box-shadow: 2px 2px 20px rgba(0,0,0,.7);
+    transition:.25s all ease-in-out;
+    @media (max-width:768px){
+      border-radius:4px;
+      font-size:24px;
+      border:2px solid #fff;
+    }
+    .btnIcon{
+      font-size:3vw;
+      margin-right:1vw;
+      @media (max-width:768px){
+        font-size:36px;
+        margin-right:10px;
+      }
+    }
+  }
+  .btnGeneralOutline{
+    border-radius:1vw;
+    font-size:2vw;
+    border:0.25vw solid #fff;
+    color:white;
+    transition:.25s all ease-in-out;
+    @media (max-width:768px){
+      border-radius:4px;
+      font-size:24px;
+      border:2px solid #fff;
+    }
+    .btnIcon{
+      font-size:3vw;
+      margin-right:1vw;
+      @media (max-width:768px){
+        font-size:36px;
+        margin-right:10px;
+      }
+    }
+  }
+  &:hover{
+    transform:scale(1.3);
+    .btnGeneral {
+      background-color: #444;
+      color:white;
+    }
+  }
+}
