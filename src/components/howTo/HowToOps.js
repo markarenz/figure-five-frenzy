@@ -10,7 +10,6 @@ const HowToOps = () => {
     };
     React.useEffect(() => {
         const timer = setTimeout(() => {
-            console.log('timer is running ...');
             incrementIdx();
         }, 1000);
         return () => clearTimeout(timer);

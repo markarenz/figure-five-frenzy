@@ -5,29 +5,30 @@ import {Button, CircularProgress} from "@material-ui/core";
 import {CheckCircleOutline as IconBack} from "@material-ui/icons";
 
 const GameOverModal = ({navPage, score, localHighScore}) => {
+    const defaultName = localStorage.getItem('hsname');
     const [scoresLoading, setScoresLoading] = React.useState(false);
-    const [hsName, setHsName] = React.useState('AAA');
+    const [hsName, setHsName] = React.useState(defaultName || 'AAA');
     const [gameOver, setGameOver] = React.useState(false);
     const [highscoreEligible, setHighscoreEligible] = React.useState(false);
 
     const submitScore = () => {
         setHighscoreEligible(false);
         setScoresLoading(true);
+        localStorage.setItem('hsname', hsName);
         if ((hsName!=='') & (score>0)){
-            const url = process.env.REACT_APP__RESTDBIO_URL;
+            const url = process.env.REACT_APP__MMS_SCORES_URL;
             fetch(url, {
                 method: 'POST',
                 mode: 'cors',
                 body: JSON.stringify(
                     {
-                        "game": "figurefive",
                         "name": hsName,
                         "score": score,
                     }
                 ),
                 headers: {
                     "content-type": "application/json",
-                    "x-apikey": process.env.REACT_APP__RESTDBIO_API_KEY,
+                    "x-apikey": process.env.REACT_APP__MMS_SCORES_API_KEY,
                     "cache-control": "no-cache"
                 }
             }).then( res => res.json()).then( data => {
@@ -40,22 +41,19 @@ const GameOverModal = ({navPage, score, localHighScore}) => {
 
     const getScores = () => {
         setScoresLoading(true);
-        console.log('getscores');
-        const url = process.env.REACT_APP__RESTDBIO_URL + '?q={"game":"figurefive"}&h={"$orderby":{"score":-1}}';
-        console.log(url);
+        const url = process.env.REACT_APP__MMS_SCORES_URL;
         fetch(url, {
             method: 'GET',
             mode: 'cors',
             headers: {
                 "content-type": "application/json",
-                "x-apikey": process.env.REACT_APP__RESTDBIO_API_KEY,
+                "x-apikey": process.env.REACT_APP__MMS_SCORES_API_KEY,
                 "cache-control": "no-cache"
             }
         }).then( res => res.json()).then( data => {
             setScoresLoading(false);
-            console.log(data);
-            const lowestScore = data[(data.length-1)].score;
-            console.log(score, lowestScore);
+            const scores = data.scores;
+            const lowestScore = scores[(scores.length-1)].score;
             if (score>0 && (score>lowestScore || data.length<25)){
                 setHighscoreEligible(true);
             }
@@ -63,10 +61,12 @@ const GameOverModal = ({navPage, score, localHighScore}) => {
     };
 
     React.useEffect( () => {
-        if (score>localHighScore){
-            localStorage.setItem('localHighScore', score);
+        if (score > 0){
+            if (score>localHighScore){
+                localStorage.setItem('localHighScore', score);
+            }
+            getScores();
         }
-        getScores();
         setTimeout(() => {
             setGameOver(true);
         }, 10);
@@ -81,7 +81,8 @@ const GameOverModal = ({navPage, score, localHighScore}) => {
         }
     };
     const handleChangeName = (e) => {
-        setHsName(e.target.value);
+        const val = e.target.value.toUpperCase();
+        setHsName(val);
     };
 
     return (
@@ -96,8 +97,8 @@ const GameOverModal = ({navPage, score, localHighScore}) => {
 
                     <div className={`${css.hsForm} ${highscoreEligible && css.hsFormActive}`}>
                         You made it to the high scores table!<br />
-                        Enter your initials:<br />
-                        <input onChange={handleChangeName} maxlength={3} value={hsName} />
+                        Enter your initials(*):<br />
+                        <input onChange={handleChangeName} maxLength={3} value={hsName} />
                     </div>
                     <div className={css.btnGeneralWrap}>
                         <Button className={css.btnGeneral} onClick={handleStartClick}>

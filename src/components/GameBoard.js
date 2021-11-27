@@ -246,15 +246,13 @@ const GameBoardMain = ({navPage}) => {
     />
   ));
   const handleTargetCardClick = () => {
-    console.log(currentCalc, targetVal);
     if (currentCalc === targetVal) {
       // YEAH!
-      console.log("Yes.");
       // set score
       nextRound();
     } else {
       // NOPE
-      console.log("No.");
+      // console.log("No.");
     }
   };
 
