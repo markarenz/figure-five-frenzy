@@ -10,3 +10,10 @@
 ## Tech Stack
 - The app is frontend only and uses React
 - We're hosting it on an S3 bucket and using CloudFront as a CDN. As a result, hosting it is comically inexpensive.
+
+## High Scores
+- Add an env file with the following values
+```
+REACT_APP__MMS_SCORES_URL="http://localhost:3000/dev/scores"
+REACT_APP__MMS_SCORES_API_KEY="YOUR_GAME_API_KEY"
+```

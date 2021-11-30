@@ -47,7 +47,7 @@ const GameBoardMainContainer = SortableContainer(
   )
 );
 
-const GameBoardMain = ({navPage}) => {
+const GameBoardMain = () => {
 
   const operatorLabels = ["?", "+", "−", "×", "÷"];
   const [calcReady, setCalcReady] = React.useState(false);
@@ -341,16 +341,16 @@ const GameBoardMain = ({navPage}) => {
       <GameIntroModal gameBegun={gameBegun} initRound={initRound} />
       {
         (roundTimer<1) &&
-        <GameOverModal score={score} navPage={navPage} localHighScore={localHighScore}/>
+        <GameOverModal score={score} localHighScore={localHighScore}/>
       }
     </div>
   );
 };
 
-const GameBoard = ({ navPage }) => {
+const GameBoard = () => {
   return (
     <div className={css.root}>
-      <GameBoardMain navPage={navPage} />
+      <GameBoardMain />
     </div>
   );
 };

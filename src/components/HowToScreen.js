@@ -1,5 +1,6 @@
 import React from "react";
 import css from "../css/modules/howToScreen.module.scss";
+import { Link } from 'react-router-dom';
 import { Button, Grid, Container, Typography } from "@material-ui/core";
 import { CheckCircleOutline as IconBack } from "@material-ui/icons";
 import HowToSwap from "./howTo/HowToSwap";
@@ -7,7 +8,7 @@ import HowToParens from "./howTo/HowToParens";
 import HowToOps from "./howTo/HowToOps";
 import HowToClock from "./howTo/HowToClock";
 
-const HowToScreen = ({ navPage }) => {
+const HowToScreen = () => {
   return (
     <div className={css.root}>
       <div className={`${css.title} ${css.title1}`}>How to Play</div>
@@ -56,10 +57,12 @@ const HowToScreen = ({ navPage }) => {
         <Grid container>
           <Grid item xs={12}>
             <div className={css.btnGeneralWrap}>
-              <Button className={css.btnGeneral} onClick={() => navPage("start")}>
-                <IconBack className={css.btnIcon} />
-                <span>Back</span>
-              </Button>
+              <Link to="/">
+                <Button className={css.btnGeneral}>
+                  <IconBack className={css.btnIcon} />
+                  <span>Back</span>
+                </Button>
+              </Link>
             </div>
           </Grid>
         </Grid>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 import css from "../css/modules/scoresScreen.module.scss";
 import { Button, CircularProgress, Grid } from "@material-ui/core";
 import {
@@ -7,12 +8,13 @@ import {
     GetApp as IconLoadMore,
 } from "@material-ui/icons";
 
-const ScoresScreen = ({ navPage }) => {
+const ScoresScreen = () => {
     const [reachedResultsEnd, setReachedReasultsEnd] = useState(false);
     const [fetchKey, setFetchKey] = useState(null);
     const [scoresLoading, setScoresLoading] = useState(false);
     const [scores, setScores] = useState([]);
     const getScores = (mode) => {
+        console.log('getScores')
         let thisFetchKey = fetchKey;
         if (mode === 'refresh') {
             setFetchKey(null);
@@ -21,18 +23,20 @@ const ScoresScreen = ({ navPage }) => {
         }
         setScoresLoading(true);
         const url = process.env.REACT_APP__MMS_SCORES_URL;
+        const apiKey = process.env.REACT_APP__MMS_SCORES_API_KEY;
+        console.log('SCORES LOADING:', url, apiKey);
         fetch(url, {
             method: "GET",
             mode: "cors",
             headers: {
                 "content-type": "application/json",
-                "x-apikey": process.env.REACT_APP__MMS_SCORES_API_KEY,
-                lastFetchedKey: thisFetchKey ? JSON.stringify(thisFetchKey) : null,
-                "cache-control": "no-cache"
+                "x-api-key": apiKey,
+                "x-last-fetch-key": thisFetchKey ? JSON.stringify(thisFetchKey) : null,
             }
         })
             .then(res => res.json())
             .then(data => {
+                console.log('scoresScreen - fetch', data);
                 setScoresLoading(false);
                 if (mode === 'append') {
                     setScores([
@@ -93,10 +97,12 @@ const ScoresScreen = ({ navPage }) => {
             <Grid container spacing={3}>
                 <Grid item xs={12} sm={4} align="center">
                     <div className={css.btnGeneralWrap}>
-                        <Button className={css.btnGeneral} onClick={() => navPage("start")}>
-                            <IconBack className={css.btnIcon} />
-                            <span>Back</span>
-                        </Button>
+                        <Link to="/">
+                            <Button className={css.btnGeneral}>
+                                <IconBack className={css.btnIcon} />
+                                <span>Back</span>
+                            </Button>
+                        </Link>
                     </div>
                 </Grid>
                 <Grid item xs={12} sm={4} align="center">

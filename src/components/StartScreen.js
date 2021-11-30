@@ -1,9 +1,10 @@
 import React from "react";
 import css from "../css/modules/start.module.scss";
+import { Link } from 'react-router-dom';
 import { Button } from "@material-ui/core";
 import { PlayCircleFilledOutlined as IconPlay, HelpOutline as IconHelp, EmojiEvents as IconScores } from "@material-ui/icons";
 
-const StartScreen = ({ navPage }) => {
+const StartScreen = () => {
   const [animationTriggered, setanimationTriggered] = React.useState(false);
   const localHighScore = localStorage.getItem('localHighScore');
   const initAnimation = () => {
@@ -24,10 +25,12 @@ const StartScreen = ({ navPage }) => {
       <div className={`${css.title} ${css.title3}`}>Frenzy</div>
       <div className={css.explainer}>A game for those who &lt;3 math.</div>
       <div className={css.btnGeneralWrap}>
-        <Button className={css.btnGeneral} onClick={() => navPage("game")}>
-          <IconPlay className={css.btnIcon} />
-          <span>Play</span>
-        </Button>
+        <Link to="/game">
+          <Button className={css.btnGeneral}>
+            <IconPlay className={css.btnIcon} />
+            <span>Play</span>
+          </Button>
+        </Link>
       </div>
 
       <div className={css.localHighScoreWrap}>
@@ -38,18 +41,22 @@ const StartScreen = ({ navPage }) => {
       </div>
       <div className={css.lowerButtons}>
         <div className={css.btnGeneralWrap}>
-          <Button className={css.btnGeneralOutline} onClick={() => navPage("scores")}>
-            <IconScores className={css.btnIcon} />
-            <span>Scores</span>
-          </Button>
+          <Link to="/scores">
+            <Button className={css.btnGeneralOutline}>
+              <IconScores className={css.btnIcon} />
+              <span>Scores</span>
+            </Button>
+          </Link>
         </div>
 
 
         <div className={css.btnGeneralWrap}>
-          <Button className={css.btnGeneralOutline} onClick={() => navPage("howTo")}>
-            <IconHelp className={css.btnIcon} />
-            <span>Help</span>
-          </Button>
+          <Link to="/howto">
+            <Button className={css.btnGeneralOutline}>
+              <IconHelp className={css.btnIcon} />
+              <span>Help</span>
+            </Button>
+          </Link>
         </div>
       </div>
 

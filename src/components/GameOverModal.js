@@ -1,15 +1,17 @@
 import React from 'react';
 import css from "../css/modules/gameOverModal.module.scss";
+import { useNavigate } from "react-router-dom";
 import {Button, CircularProgress} from "@material-ui/core";
 
 import {CheckCircleOutline as IconBack} from "@material-ui/icons";
 
-const GameOverModal = ({navPage, score, localHighScore}) => {
+const GameOverModal = ({score, localHighScore}) => {
     const defaultName = localStorage.getItem('hsname');
     const [scoresLoading, setScoresLoading] = React.useState(false);
     const [hsName, setHsName] = React.useState(defaultName || 'AAA');
     const [gameOver, setGameOver] = React.useState(false);
     const [highscoreEligible, setHighscoreEligible] = React.useState(false);
+    const navigate = useNavigate();
 
     const submitScore = () => {
         setHighscoreEligible(false);
@@ -28,12 +30,11 @@ const GameOverModal = ({navPage, score, localHighScore}) => {
                 ),
                 headers: {
                     "content-type": "application/json",
-                    "x-apikey": process.env.REACT_APP__MMS_SCORES_API_KEY,
-                    "cache-control": "no-cache"
+                    "x-api-key": process.env.REACT_APP__MMS_SCORES_API_KEY,
                 }
             }).then( res => res.json()).then( data => {
                 // data saved
-                navPage('start');
+                navigate("/");
             });
         }
     }
@@ -47,8 +48,7 @@ const GameOverModal = ({navPage, score, localHighScore}) => {
             mode: 'cors',
             headers: {
                 "content-type": "application/json",
-                "x-apikey": process.env.REACT_APP__MMS_SCORES_API_KEY,
-                "cache-control": "no-cache"
+                "x-api-key": process.env.REACT_APP__MMS_SCORES_API_KEY,
             }
         }).then( res => res.json()).then( data => {
             setScoresLoading(false);
@@ -77,7 +77,7 @@ const GameOverModal = ({navPage, score, localHighScore}) => {
         if (highscoreEligible && hsName!==''){
             submitScore();
         } else {
-            navPage('start');
+            navigate("/");
         }
     };
     const handleChangeName = (e) => {
